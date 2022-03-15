@@ -27,6 +27,7 @@ module.exports = {
     'unused-imports'
   ],
   rules: {
+    'linebreak-style': 'off',
     '@typescript-eslint/indent': 'warn',
     'function-paren-newline': 'off',
     'react/jsx-curly-newline': 'off',
