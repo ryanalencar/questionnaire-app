@@ -20,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.colors.background};
     -webkit-font-smoothing: antialiased;
+    transition: background ease 0.3s;
   }
 
   body, input, textarea, button {

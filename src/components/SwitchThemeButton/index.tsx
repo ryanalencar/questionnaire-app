@@ -18,10 +18,10 @@ export function SwitchThemeButton({ toggleTheme }: ISwitchThemeButtonProps) {
       {theme.title === 'light' ? (
         <MdNightlightRound
           size={ICON_BUTTON_SIZE}
-          color={theme.colors.secondary}
+          color={theme.colors.primary400}
         />
       ) : (
-        <MdLightMode size={ICON_BUTTON_SIZE} color={theme.colors.secondary} />
+        <MdLightMode size={ICON_BUTTON_SIZE} color={theme.colors.primary300} />
       )}
     </S.Button>
   );
