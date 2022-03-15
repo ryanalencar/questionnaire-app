@@ -1,7 +1,28 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import { MdNightlightRound, MdLightMode } from 'react-icons/md';
+import { useTheme } from 'styled-components';
 
-export function SwitchThemeButton() {
-  return <h1>Anwser Card</h1>;
+import * as S from './styles';
+
+interface ISwitchThemeButtonProps {
+  toggleTheme: () => void;
+}
+
+const ICON_BUTTON_SIZE = 25;
+
+export function SwitchThemeButton({ toggleTheme }: ISwitchThemeButtonProps) {
+  const theme = useTheme();
+  return (
+    <S.Button onClick={toggleTheme}>
+      {theme.title === 'light' ? (
+        <MdNightlightRound
+          size={ICON_BUTTON_SIZE}
+          color={theme.colors.secondary}
+        />
+      ) : (
+        <MdLightMode size={ICON_BUTTON_SIZE} color={theme.colors.secondary} />
+      )}
+    </S.Button>
+  );
 }
