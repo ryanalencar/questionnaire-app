@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react';
 
 import { ThemeProvider } from 'styled-components';
 
-import { AnswerCard } from './components/AnswerCard';
+import { Content, ContentTitle } from './components/common/Content';
+import { QuestionCard } from './components/QuestionCard';
 import { SwitchThemeButton } from './components/SwitchThemeButton';
 import { GlobalStyle } from './styles/global';
 import dark from './styles/themes/dark';
@@ -17,7 +18,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AnswerCard />
+      <Content>
+        <ContentTitle>Simple React Questionnaire</ContentTitle>
+        <QuestionCard />
+      </Content>
       <SwitchThemeButton toggleTheme={toggleTheme} />
       <GlobalStyle />
     </ThemeProvider>
