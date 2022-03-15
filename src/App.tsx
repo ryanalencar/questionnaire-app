@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { ThemeProvider } from 'styled-components';
 
+import { AnswerCard } from './components/AnswerCard';
 import { GlobalStyle } from './styles/global';
-import { theme } from './styles/theme';
+import dark from './styles/themes/dark';
+import light from './styles/themes/light';
 
 function App() {
+  const [theme, setTheme] = useState(light);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((_theme) => (_theme.title === 'light' ? dark : light));
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
-      <h1>Hello Vite!</h1>
+      <AnswerCard />
       <GlobalStyle />
     </ThemeProvider>
   );
