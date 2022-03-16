@@ -9,8 +9,6 @@ export const CardContainer = styled.div`
       ? theme.colors.secondary400
       : theme.colors.primary600};
   border-radius: 4px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 `;
 
 export const QuestionSection = styled.section`
@@ -28,7 +26,6 @@ export const QuestionCounter = styled.h2`
       ? theme.colors.primary500
       : theme.colors.secondary200};
 
-  margin-bottom: 2rem;
   span {
     font-size: 18px;
   }

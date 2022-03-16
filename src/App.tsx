@@ -12,20 +12,25 @@ import dark from './styles/themes/dark';
 import light from './styles/themes/light';
 
 export interface Questions {
+  questionKey: string;
   questionText: string;
   answerType: 'text' | 'objective' | 'multiple';
   anwserOptions?: {
     answerText: string;
     value: string;
   }[];
+  answerHint?: string;
 }
 
 const questions: Questions[] = [
   {
+    questionKey: 'name',
     questionText: 'What is your name?',
+    answerHint: 'Type your name',
     answerType: 'text',
   },
   {
+    questionKey: 'age',
     questionText: 'How old are you?',
     answerType: 'objective',
     anwserOptions: [
@@ -48,6 +53,7 @@ const questions: Questions[] = [
     ],
   },
   {
+    questionKey: 'technologies',
     questionText: 'What technologies you prefer to use?',
     answerType: 'multiple',
     anwserOptions: [
