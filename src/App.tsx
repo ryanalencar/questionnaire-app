@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 
 import { createServer, Model } from 'miragejs';
 import { ThemeProvider } from 'styled-components';
@@ -6,45 +6,71 @@ import { ThemeProvider } from 'styled-components';
 import { Content, ContentTitle } from './components/common/Content';
 import { QuestionCard } from './components/QuestionCard';
 import { SwitchThemeButton } from './components/SwitchThemeButton';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import { GlobalStyle } from './styles/global';
 import dark from './styles/themes/dark';
 import light from './styles/themes/light';
 
-const questions = [
+export interface Questions {
+  questionText: string;
+  answerType: 'text' | 'objective' | 'multiple';
+  anwserOptions?: {
+    answerText: string;
+    value: string;
+  }[];
+}
+
+const questions: Questions[] = [
   {
-    questionText: 'What is the capital of France?',
-    answerOptions: [
-      { answerText: 'New York', isCorrect: false },
-      { answerText: 'London', isCorrect: false },
-      { answerText: 'Paris', isCorrect: true },
-      { answerText: 'Dublin', isCorrect: false },
+    questionText: 'What is your name?',
+    answerType: 'text',
+  },
+  {
+    questionText: 'How old are you?',
+    answerType: 'objective',
+    anwserOptions: [
+      {
+        answerText: '-18',
+        value: 'Less than 18 years',
+      },
+      {
+        answerText: '18 - 29',
+        value: 'Between 18 and 29 years',
+      },
+      {
+        answerText: '29 - 40',
+        value: 'Between 29 and 40 years',
+      },
+      {
+        answerText: '40 - 70',
+        value: 'Between 40 and 70 years',
+      },
     ],
   },
   {
-    questionText: 'Who is CEO of Tesla?',
-    answerOptions: [
-      { answerText: 'Jeff Bezos', isCorrect: false },
-      { answerText: 'Elon Musk', isCorrect: true },
-      { answerText: 'Bill Gates', isCorrect: false },
-      { answerText: 'Tony Stark', isCorrect: false },
-    ],
-  },
-  {
-    questionText: 'The iPhone was created by which company?',
-    answerOptions: [
-      { answerText: 'Apple', isCorrect: true },
-      { answerText: 'Intel', isCorrect: false },
-      { answerText: 'Amazon', isCorrect: false },
-      { answerText: 'Microsoft', isCorrect: false },
-    ],
-  },
-  {
-    questionText: 'How many Harry Potter books are there?',
-    answerOptions: [
-      { answerText: '1', isCorrect: false },
-      { answerText: '4', isCorrect: false },
-      { answerText: '6', isCorrect: false },
-      { answerText: '7', isCorrect: true },
+    questionText: 'What technologies you prefer to use?',
+    answerType: 'multiple',
+    anwserOptions: [
+      {
+        answerText: 'ReactJs',
+        value: 'ReactJs',
+      },
+      {
+        answerText: 'NodeJs',
+        value: 'NodeJs',
+      },
+      {
+        answerText: 'React Native',
+        value: 'React Native',
+      },
+      {
+        answerText: 'Typescript',
+        value: 'Typescript',
+      },
+      {
+        answerText: 'Javascript',
+        value: 'Javascript',
+      },
     ],
   },
 ];
@@ -65,11 +91,11 @@ createServer({
 });
 
 function App() {
-  const [theme, setTheme] = useState(dark);
+  const [theme, setTheme] = useLocalStorage('theme', light);
 
-  const toggleTheme = useCallback(() => {
+  const toggleTheme = () => {
     setTheme((_theme) => (_theme.title === 'light' ? dark : light));
-  }, []);
+  };
 
   return (
     <ThemeProvider theme={theme}>

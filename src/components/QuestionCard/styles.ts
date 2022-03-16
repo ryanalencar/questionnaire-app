@@ -37,6 +37,7 @@ export const QuestionCounter = styled.h2`
 export const QuestionText = styled.p`
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
+  font-size: 2rem;
   color: ${({ theme }) =>
     theme.title === 'light' ? theme.colors.primary500 : theme.colors.text};
 `;
