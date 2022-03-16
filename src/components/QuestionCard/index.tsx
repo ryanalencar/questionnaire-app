@@ -68,18 +68,6 @@ export function QuestionCard() {
                 name="technologies"
                 options={questions[currentQuestion].anwserOptions!}
               />
-              // <div>
-              //   {questions[currentQuestion].anwserOptions?.map(
-              //     (option, index) => (
-              //       <Checkbox key={option.value} name="technologies">
-              //         <CheckboxInput
-              //           label={option.answerText}
-              //           value={option.value}
-              //         />
-              //       </Checkbox>
-              //     ),
-              //   )}
-              // </div>
             )}
             {questions[currentQuestion]?.answerType === 'objective' && (
               <S.ObjectiveWrapper>
