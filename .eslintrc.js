@@ -27,6 +27,8 @@ module.exports = {
     'unused-imports'
   ],
   rules: {
+    'react/display-name': 'off',
+    'react/function-component-definition': 'off',
     'import/no-cycle': 'off',
     'react/jsx-one-expression-per-line': 'off',
     'linebreak-style': 'off',

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
+import { transparentize } from 'polished';
 import styled from 'styled-components';
 
 export const Input = styled.input<{ hasError?: boolean }>`
@@ -11,10 +12,15 @@ export const Input = styled.input<{ hasError?: boolean }>`
   border-radius: 4px;
   color: #fff;
   transition: border 0.3s ease;
-  background-color: ${({ theme }) => theme.colors.primary400};
+  background-color: ${({ theme }) =>
+    transparentize(0.3, theme.colors.primary400)};
+  font-weight: bold;
 
   &:focus {
-    border-color: ${({ theme }) => theme.colors.secondary300};
+    border-color: ${({ theme }) =>
+      theme.title === 'light'
+        ? theme.colors.primary500
+        : theme.colors.secondary300};
   }
 
   &:disabled {

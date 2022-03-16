@@ -6,6 +6,7 @@ import { Form } from '@unform/web';
 import { Questions } from '../../App';
 import { api } from '../../services/api';
 import Input from '../Input';
+import CheckboxInput from '../Input/CheckboxInput';
 import { NextButton } from '../NextButton';
 import * as S from './styles';
 
@@ -13,19 +14,32 @@ export function QuestionCard() {
   const [questions, setQuestions] = useState<Questions[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isSummaryShown, setIsSummaryShown] = useState(false);
+  const [objectiveSelected, setObjectiveSelected] = useState(null);
+  const [questionnaireData, setQuestionnaireData] = useState({});
   const formRef = useRef<FormHandles>(null);
-
   useEffect(() => {
     api.get('/questions').then((response) => {
       setQuestions(response.data.questions);
     });
   }, []);
 
-  const handleNextQuestion = (data: any) => {
+  const handleNextQuestion = (_data: any) => {
+    const data = {
+      ..._data,
+      objectiveValue: objectiveSelected,
+    };
+    setQuestionnaireData(data);
     if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion((curr) => curr + 1);
     } else setIsSummaryShown(true);
   };
+
+  const handleObjectiveSelectionChange = (e: MouseEvent, _value: any) => {
+    e.preventDefault();
+    setObjectiveSelected(_value);
+  };
+
+  console.log(questionnaireData);
 
   return (
     <S.CardContainer>
@@ -50,18 +64,38 @@ export function QuestionCard() {
               />
             )}
             {questions[currentQuestion]?.answerType === 'multiple' && (
-              <div>
-                {questions[currentQuestion].anwserOptions?.map((option) => (
-                  <p key={option.answerText}>{option.answerText}</p>
-                ))}
-              </div>
+              <CheckboxInput
+                name="technologies"
+                options={questions[currentQuestion].anwserOptions!}
+              />
+              // <div>
+              //   {questions[currentQuestion].anwserOptions?.map(
+              //     (option, index) => (
+              //       <Checkbox key={option.value} name="technologies">
+              //         <CheckboxInput
+              //           label={option.answerText}
+              //           value={option.value}
+              //         />
+              //       </Checkbox>
+              //     ),
+              //   )}
+              // </div>
             )}
             {questions[currentQuestion]?.answerType === 'objective' && (
-              <div>
+              <S.ObjectiveWrapper>
                 {questions[currentQuestion].anwserOptions?.map((option) => (
-                  <p key={option.answerText}>{option.answerText}</p>
+                  <S.ObjectiveAnswerButton
+                    type="button"
+                    onClick={(e) =>
+                      handleObjectiveSelectionChange(e, option.value)
+                    }
+                    isActive={objectiveSelected === option.value}
+                    activeColor="#fff"
+                    key={option.answerText}>
+                    {option.answerText}
+                  </S.ObjectiveAnswerButton>
                 ))}
-              </div>
+              </S.ObjectiveWrapper>
             )}
             <NextButton type="submit" title="Next Question" />
           </S.AnswerSection>
