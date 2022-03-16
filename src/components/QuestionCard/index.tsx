@@ -26,7 +26,7 @@ export function QuestionCard() {
   const handleNextQuestion = (_data: any) => {
     const data = {
       ..._data,
-      objectiveValue: objectiveSelected,
+      age: objectiveSelected,
     };
     setQuestionnaireData(data);
     if (currentQuestion + 1 < questions.length) {
@@ -39,12 +39,28 @@ export function QuestionCard() {
     setObjectiveSelected(_value);
   };
 
-  console.log(questionnaireData);
-
   return (
     <S.CardContainer>
       {isSummaryShown ? (
-        <h1>Answeres</h1>
+        <S.SummaryContainer>
+          <h1>Answeres</h1>
+          <S.AnswersWrapper>
+            <div>
+              {questions.map((question) => (
+                <div key={question.questionKey}>
+                  <S.QuestionText>{question.questionText}</S.QuestionText>
+                </div>
+              ))}
+            </div>
+            <S.QuestionnaireData>
+              {questions.map((question, index) => (
+                <div key={questionnaireData[question.questionKey]}>
+                  {questionnaireData[question.questionKey]}
+                </div>
+              ))}
+            </S.QuestionnaireData>
+          </S.AnswersWrapper>
+        </S.SummaryContainer>
       ) : (
         <Form ref={formRef} onSubmit={handleNextQuestion}>
           <S.QuestionSection>
@@ -65,7 +81,7 @@ export function QuestionCard() {
             )}
             {questions[currentQuestion]?.answerType === 'multiple' && (
               <CheckboxInput
-                name="technologies"
+                name={questions[currentQuestion]?.questionKey}
                 options={questions[currentQuestion].anwserOptions!}
               />
             )}

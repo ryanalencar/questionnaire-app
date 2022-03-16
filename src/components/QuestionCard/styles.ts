@@ -38,6 +38,10 @@ export const QuestionText = styled.p`
   font-size: 2rem;
   color: ${({ theme }) =>
     theme.title === 'light' ? theme.colors.primary500 : theme.colors.text};
+
+  & + p {
+    margin-top: 1.5rem;
+  }
 `;
 
 export const AnswerSection = styled.section`
@@ -91,5 +95,33 @@ export const ObjectiveAnswerButton = styled.button<{
     margin-left: 1rem;
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.text};
+  }
+`;
+
+export const SummaryContainer = styled.div`
+  h1 {
+    text-align: center;
+    color: ${({ theme }) =>
+      theme.title === 'light'
+        ? theme.colors.primary400
+        : theme.colors.secondary200};
+    margin-bottom: 2rem;
+  }
+`;
+
+export const AnswersWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  border: 1px solid white;
+`;
+
+export const QuestionnaireData = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  div:first-child {
+    margin-top: 0.5rem;
   }
 `;
